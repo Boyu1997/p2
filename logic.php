@@ -20,7 +20,7 @@
             $word_bank[$counter] = $value_out;
             $counter += 1;
         }
-    }}
+    }
 
     if (isset($_POST["number_of_word"])) {
         if ($_POST["number_of_word"] >=1 AND $_POST["number_of_word"] <=9) {
