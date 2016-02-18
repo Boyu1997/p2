@@ -1,9 +1,8 @@
 <?php
-
     $web_library_code = [];
 
-    # for ($i=0; $i<15 ; $i++) {
-    for ($i=0; $i<1 ; $i++) {
+    for ($i=0; $i<15 ; $i++) {
+    # for ($i=0; $i<1 ; $i++) {
         $value_holder_1 = $i * 2 + 1;
         $value_holder_2 = $value_holder_1 + 1;
         if ($value_holder_1 < 10) {
@@ -27,19 +26,29 @@
     $password = "Please Enter Parameters...";
 
     if (isset($_GET["number_of_word"])) {
-        $password = "";
-        for ($i=0; $i<$_GET["number_of_word"]; $i++) {
-            $password = $password.$word_bank[array_rand($word_bank)];
-            if ($i<$_GET["number_of_word"]-1) {
-                $password = $password."-";
+        if ($_GET["number_of_word"] >=1 AND $_GET["number_of_word"] <=9) {
+            $password = "";
+            for ($i=0; $i<$_GET["number_of_word"]; $i++) {
+                $password = $password.$word_bank[array_rand($word_bank)];
+                if ($i<$_GET["number_of_word"]-1) {
+                    $password = $password."-";
+                }
             }
-        }
-        $password_class = "success";
-    }
 
-    if ($password == "")
-    {
+            if (isset($_GET["add_number"])) {
+                $password = $password.rand(0, 9);
+            }
+
+            if (isset($_GET["add_symbol"])) {
+                $symbol_bank = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "-", "=", "{", "}", "|", "[", "]", "\"", "\\", "/", ":"];
+                $password = $password.$symbol_bank[array_rand($symbol_bank)];
+            }
+
+            echo $password;
+        }
+    }
+    else {
         $password = "ERROR";
-        $password_class = "error";
+        echo $password;
     }
 ?>
