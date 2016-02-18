@@ -1,8 +1,8 @@
 <?php
+
     $web_library_code = [];
 
     for ($i=0; $i<15 ; $i++) {
-    # for ($i=0; $i<1 ; $i++) {
         $value_holder_1 = $i * 2 + 1;
         $value_holder_2 = $value_holder_1 + 1;
         if ($value_holder_1 < 10) {
@@ -13,7 +13,6 @@
         }
         $web_library_code[$i] = file_get_contents("http://www.paulnoll.com/Books/Clear-English/words-$value_holder_1-$value_holder_2-hundred.html");
     }
-
     $counter = 0;
     foreach ($web_library_code as $key => $value) {
         preg_match_all("|<li>[\s]*([\w]*)[\s]*</li>|U", $value, $out, PREG_PATTERN_ORDER);
@@ -21,34 +20,36 @@
             $word_bank[$counter] = $value_out;
             $counter += 1;
         }
-    }
+    }}
 
-    $password = "Please Enter Parameters...";
-
-    if (isset($_GET["number_of_word"])) {
-        if ($_GET["number_of_word"] >=1 AND $_GET["number_of_word"] <=9) {
+    if (isset($_POST["number_of_word"])) {
+        if ($_POST["number_of_word"] >=1 AND $_POST["number_of_word"] <=9) {
             $password = "";
-            for ($i=0; $i<$_GET["number_of_word"]; $i++) {
+            for ($i=0; $i<$_POST["number_of_word"]; $i++) {
                 $password = $password.$word_bank[array_rand($word_bank)];
-                if ($i<$_GET["number_of_word"]-1) {
+                if ($i<$_POST["number_of_word"]-1) {
                     $password = $password."-";
                 }
             }
 
-            if (isset($_GET["add_number"])) {
-                $password = $password.rand(0, 9);
+            if (isset($_POST["add_number"])) {
+                if ($_POST["add_number"] == "on") {
+                    $password = $password.rand(0, 9);
+                }
             }
 
-            if (isset($_GET["add_symbol"])) {
-                $symbol_bank = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "-", "=", "{", "}", "|", "[", "]", "\"", "\\", "/", ":"];
-                $password = $password.$symbol_bank[array_rand($symbol_bank)];
+            if (isset($_POST["add_symbol"])) {
+                if ($_POST["add_symbol"] == "on") {
+                    $symbol_bank = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "-", "=", "{", "}", "|", "[", "]", "\"", "\\", "/", ":"];
+                    $password = $password.$symbol_bank[array_rand($symbol_bank)];
+                }
             }
-
-            echo $password;
+            $password_id = "generate_success";
         }
-    }
-    else {
-        $password = "ERROR";
-        echo $password;
+        else {
+            $password = "Invalid Input";
+            $password_id = "generate_fail";
+        }
+        print json_encode("<p id=\"".$password_id."\">".$password."</p>");
     }
 ?>
