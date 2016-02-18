@@ -7,10 +7,10 @@
 A simple xkcd Password Generator.
 
 ## Demo
-Pending
+<http://v.youku.com/v_show/id_XMTQ3NTU3ODM3Ng==.html>
 
 ## Details for teaching team
-Pending
+NONE
 
 ## Outside code
-Pending
+jQuery Library
