@@ -53,7 +53,7 @@
             </form>
         </div>
         <div>
-            <img src="http://imgs.xkcd.com/comics/password_strength.png">
+            <img src="http://imgs.xkcd.com/comics/password_strength.png" alt="Stronger and easy to remember pass.">
             <br>
             <p>Inspired by<a href="http://www.xkcd.com">xkcd</a>.</p>
         </div>
